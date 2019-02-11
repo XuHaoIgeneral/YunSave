@@ -1,0 +1,23 @@
+.box-all{
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background-color: #faf0e6;
+}
+.nav-sidebar{
+    float: left;
+
+}
+.show{
+    float: left;
+    margin: 1% 1% 1% 1%;
+    background-color: #fae6dc;
+}
+.time_file
+{
+    width:200px;
+    white-space:nowrap;
+    word-break:keep-all;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}

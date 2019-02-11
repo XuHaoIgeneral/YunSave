@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>a</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+
+<body>
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/layui/layui.js"></script>
+    <input type="text" id="container_name">
+    <button class="layui-btn layui-btn-sm" onclick="create()">
+        <i class="layui-icon">&#xe654;</i>
+    </button>
+
+    <script>
+
+        function create() {
+                var container_name=$('#container_name').val();
+                console.log(container_name);
+                $.ajax({
+                    url:"/create/",
+                    data:{ container_name:container_name,},
+                    type: "post",
+                    success: function(data) {
+                        var obj=JSON.parse(data);
+                        console.log(obj.state);
+                        if(obj.state==1){
+                            alert("成功添加文件夹");
+                            location.reload(true);
+                        }else if(obj.state==0){
+                            alert("添加失败");
+                        }else {
+                            alert("系统错误");
+                        }
+                    },
+                    error: function (returnValue) {
+                        alert("未知错误！");
+                    }
+                })
+            }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}网盘控制台{% endblock %}
+    {% block conf %}
+{#        #css js 外导入#}
+        <link rel="stylesheet" href="/static/css/index.css">
+    {% endblock %}
+</head>
+<body>
+    {% block content %}{#主页内容#}
+        <script src="/static/js/jquery-3.2.1.min.js"></script>
+
+
+        <div class="layui-fluid">
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend><div id="container_name">{{ container_name }}</div></legend>
+            </fieldset>
+            <div class="layui-row">
+                {% for foo in object_list %}
+                    <div class="layui-col-sm3" style="margin-top: 1%;margin-bottom: 1%">
+                    <div class="grid-demo grid-demo-bg1">
+                        <h3><div id="{{ foo.id }}">{{ foo.name }}</div></h3>
+                        <p>文件编号:{{ foo.id }}</p>
+                        <p>文件大小:{{ foo.bytes }} Byte</p>
+                        <p class="time_file">文件修改时间：{{ foo.last_modified }}</p>
+                        <p>文件类型：{{ foo.content_type }}</p>
+                        <br>
+                        <button class="layui-btn layui-btn-sm" onclick="del('{{ foo.name }}')">
+                            <i class="layui-icon">&#xe640;</i>
+                        </button>
+
+                         <button class="layui-btn layui-btn-sm" onclick="show('{{ foo.name }}')">
+                            <i class="layui-icon">&#xe642;</i>
+                        </button>
+                        <a href="/download/?container_name={{ container_name }}&object_name={{ foo.name }}">
+                            <button class="layui-btn layui-btn-sm">
+                                <i class="layui-icon">&#xe602;</i>
+                            </button>
+                        </a>
+                        <br>
+                        <script>
+                        function del(object_name) {
+                            var actice="delete";
+                            var container_name=$('#container_name').html();
+                            console.log(container_name);
+                            console.log(object_name);
+                            $.ajax({
+                                url:"/object/",
+                                data:{ container_name:container_name,
+                                        object_name:object_name,
+                                        actice:actice },
+                                type: "post",
+                                success: function(data) {
+                                    var obj=JSON.parse(data);
+                                    console.log(obj.state);
+                                    if(obj.state==1){
+                                        alert("成功删除");
+                                        location.reload(true);
+                                    }else if(obj.state==0){
+                                        alert("删除失败");
+                                    }else {
+                                        alert("系统错误");
+                                    }
+                                },
+                                error: function (returnValue) {
+                                    alert("未知错误！");
+                                }
+                            })
+                        }
+                        function show(object_name) {
+                                var actice="show";
+                                var container_name=$('#container_name').html();
+                                console.log(object_name);
+                                $.ajax({
+                                    url:"/object/",
+                                    data:{ container_name:container_name,
+                                            object_name:object_name,
+                                            actice:actice },
+                                    type: "post",
+                                    success: function(data) {
+                                        var obj=JSON.parse(data);
+                                        console.log(obj.show);
+                                        alert(obj.show);
+                                        location.reload(true);
+                                    },
+                                    error: function (returnValue) {
+                                        alert("未知错误！");
+                                    }
+                                })
+                                        }
+                    </script>
+                    </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>

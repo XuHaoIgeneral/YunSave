@@ -1,0 +1,15 @@
+.mean {
+    width: 1080px;
+    margin: 0 auto;
+}
+
+.nav{
+    width: 200px;
+    float: left;
+}
+.show{
+    width: 780px;
+    height:550px;
+    background-color: #f2f2e8;
+    float: left;
+}

@@ -1,0 +1,17 @@
+.box-all{
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background-color: #fae6dc;
+}
+.nav-sidebar{
+    float: left;
+
+}
+.show{
+    float: left;
+    width: 83%;
+    margin: 1% 1% 1% 1%;
+    background-color: #1E90FF;
+
+}

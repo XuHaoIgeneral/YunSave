@@ -1,0 +1,68 @@
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% block conf %}
+         <link rel="stylesheet" href="/static/css/login.css">
+         <script src="/static/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+        <div class="docker">
+            <div class="login_box">
+                <div class="phone">
+                    <div class="login_logo">
+                        <img src="/static/image/timg.jpg" style="width: 50%; height: 25%">
+                    </div>
+                    <div class="login_input_user">
+                        <h3>注册名</h3>
+                        <input type="text" id="username">
+                    </div>
+                    <div class="clear"></div>
+                    <div class="login_input_passwd">
+                        <h3>输入密码</h3>
+                        <input type="password" id="passwd">
+                    </div>
+                    <div class="clear"></div>
+                    <button onclick="into()" class="flotsize">注册</button></center>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function into() {
+                var username=$("#username").val();
+                var password=$("#passwd").val();
+                $.ajax({
+                    url:"/into/",
+                    data:{ username:username, password:password },
+                    type: "post",
+                    success: function (data) {
+{#                        JSON.parse(data);#}
+                        var obj = JSON.parse(data);
+                        if(obj.state==1){
+                            alert("yes");
+                            window.location.href="/login";
+                        }else if(obj.state==0){
+                            alert("用户名字或者密码错误");
+                        }else {
+                            alert("登录失败");
+                        }
+                    },
+                    error: function (returnValue) {
+                        alert("未知错误！");
+                    }
+                    })
+            }
+        </script>
+
+    {% endblock %}
+
+
+
+
+    {% block footer %}
+    {% endblock %}
+</body>
+</html>

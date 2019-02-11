@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}网盘控制台{% endblock %}
+    {% block conf %}
+{#        #css js 外导入#}
+        <link rel="stylesheet" href="/static/css/index.css">
+    {% endblock %}
+</head>
+<body>
+    {% block content %}{#主页内容#}
+        <script src="/static/layui/layui.js"></script>
+        <script src="/static/js/jquery-3.2.1.min.js"></script>
+
+        <div class="layui-fluid">
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>容器表</legend>
+            </fieldset>
+            <div class="layui-row">
+                {% for foo in containnerlist %}
+                    <div class="layui-col-sm3" style="margin-top: 1%;margin-bottom: 1%">
+                        <div class="grid-demo grid-demo-bg1">
+                            <a href="object?containner={{ foo.name }}"><h2><div id="{{ foo.id }}">{{ foo.name }}</div></h2></a>
+                            <p>容器ID：{{ foo.id }}</p>
+                            <p>容器名称:{{ foo.name }}</p>
+                            <p>容器容量：{{ foo.bytes }} Byte</p>
+                            <p>容器文件数:{{ foo.count }}</p>
+                            <button class="layui-btn layui-btn-sm" onclick="del('{{ foo.name }}')">
+                                <i class="layui-icon">&#xe640;</i>
+                            </button>
+                            <br>
+                            <script>
+                                function del(container_name) {
+                                    var actice="delete";
+                                    console.log(container_name);
+                                    $.ajax({
+                                        url:"/index/",
+                                        data:{ container_name:container_name,
+                                                actice:actice },
+                                        type: "post",
+                                        success: function(data) {
+                                            var obj=JSON.parse(data);
+                                            console.log(obj.state);
+                                            if(obj.state==1){
+                                                alert("成功删除");
+                                                location.reload(true);
+                                            }else if(obj.state==0){
+                                                alert("删除失败");
+                                            }else {
+                                                alert("系统错误");
+                                            }
+                                        },
+                                        error: function (returnValue) {
+                                            alert("未知错误！");
+                                        }
+                                    })
+                                }
+                            </script>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+
+
+        <br>
+        <hr>
+        <br>
+        <button class="layui-btn" onclick="create()"><i class="layui-icon">&#xe608;</i> 添加</button>
+
+        <script>
+            function create() {
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.open({
+                        type: 2,
+                        title: '容器新添加',
+                        maxmin: true,
+                        shadeClose: true, //点击遮罩关闭层
+                        area: ['300px', '200px'],
+                        content: '/create/'
+                    });
+                });
+            }
+        </script>
+    {% endblock %}
+</body>
+</html>

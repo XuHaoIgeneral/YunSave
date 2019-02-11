@@ -1,0 +1,60 @@
+button{
+    margin-top: 20px;
+    /*margin-left: 80px;*/
+    margin-bottom: 20px;
+    width: 100px;
+    height: 25px;
+    background: #1E90FF;
+    border-radius: 10px;
+    border:none;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+        }
+
+button:hover {
+    background: #79A84B;
+    outline: 0;
+}
+
+.flotsize{
+    text-align: center;
+    font-weight: bold;
+}
+
+.login_input_user .login_input_passwd{
+
+}
+h3{
+    /*margin-top: 20px;*/
+    /*margin-left: 90px;*/
+    /*margin-bottom: 20px;*/
+    /*font-family: 黑体;*/
+}
+input{
+    /*margin-top: 20px;*/
+    /*margin-left: 50px;*/
+    /*margin-bottom: 20px;*/
+}
+.clear{
+    clear: both;
+}
+.login_box{
+    margin: 15px auto;
+    width: 323px;
+    height: 678px;
+    background-image: url("/static/image/phone.png");
+    text-align: center;
+}
+
+.phone{
+    padding-top: 100px;
+    /*padding-left: 30px;*/
+    width: 350px;
+    height: 620px;
+}
+.login_logo{
+    /*margin-top: 20px;*/
+    /*margin-left: 50px;*/
+    /*margin-bottom: 20px;*/
+}
